@@ -1,0 +1,63 @@
+CREATE DATABASE games;
+
+use games;
+
+create table games(
+   game_id INT NOT NULL AUTO_INCREMENT,
+   title VARCHAR(100),
+   description VARCHAR(200),
+   createdby VARCHAR(40),
+   age_rating INT,
+   likes INT,
+   PRIMARY KEY (game_id)
+);
+
+create table platforms(
+   platform_id INT NOT NULL AUTO_INCREMENT,
+   platform VARCHAR(100),
+   PRIMARY KEY (platform_id)
+);
+
+create table game_platforms(
+   game_id INT NOT NULL,
+   platform_id INT NOT NULL 
+);
+
+
+create table users(
+   user_id INT NOT NULL AUTO_INCREMENT,
+   user VARCHAR(200),
+   PRIMARY KEY (user_id)
+);
+
+
+
+create table comments(
+   comment_id INT NOT NULL AUTO_INCREMENT,
+   user INT NOT NULL,
+   game_id INT NOT NULL, 
+   message VARCHAR(200),
+   likes INT,
+   datecreated varchar(50),
+   PRIMARY KEY (comment_id),
+   FOREIGN KEY (user) REFERENCES users(user_id),
+   FOREIGN KEY (game_id) REFERENCES games(game_id)
+);
+
+
+insert into games(title,description,createdby,age_rating,likes) values("Uncharted 4","For the first time ever in Uncharted history, ride horses during gameplay", "Sony","18",200);
+insert into games(title,description,createdby,age_rating,likes) values("Call of Duty, Infinite Warfare","For the first time ever in Uncharted history, ride horses during gameplay", "Sony","18",200);
+
+insert into platforms(platform) values("PS3");
+insert into platforms(platform) values("PS4");
+
+insert into game_platforms(game_id, platform_id) values(1,2);
+insert into game_platforms(game_id, platform_id) values(2,2);
+insert into game_platforms(game_id, platform_id) values(2,1);
+
+insert into users(user) values('bob');
+insert into users(user) values('testingPriest');
+
+insert into comments(game_id, message, likes, user, datecreated) values(1,'very coool !! ', 5, 1, 12423423453);
+insert into comments(game_id, message, likes, user, datecreated) values(1,'amazing game. thanks', 3, 2, 12423423453);
+insert into comments(game_id, message, likes, user, datecreated) values(2,'hello games', 7, 1, 12423423453);
